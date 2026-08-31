@@ -1,0 +1,204 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="load_bay_world">
+
+    <!-- Physics Engine -->
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <!-- Plugins -->
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors"/>
+
+    <!-- Ambient Lighting & Sun -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.85 0.85 0.85 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- Ground Plane -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.75 0.75 0.78 1</ambient>
+            <diffuse>0.8 0.8 0.83 1</diffuse>
+            <specular>0.5 0.5 0.5 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================= WALL 1: EAST / LOAD BAY TARGET WALL ================= -->
+    <model name="wall_east_load_bay">
+      <static>true</static>
+      <pose>3.5 0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 6.0 2.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 6.0 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.35 0.4 1</ambient>
+            <diffuse>0.4 0.45 0.5 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================= WALL 2: WEST / REAR WALL ================= -->
+    <model name="wall_west">
+      <static>true</static>
+      <pose>-2.5 0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 6.0 2.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 6.0 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.35 0.4 1</ambient>
+            <diffuse>0.4 0.45 0.5 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================= WALL 3: NORTH / SIDE WALL ================= -->
+    <model name="wall_north">
+      <static>true</static>
+      <pose>0.5 3.0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>6.2 0.2 2.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>6.2 0.2 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.35 0.4 1</ambient>
+            <diffuse>0.4 0.45 0.5 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================= WALL 4: SOUTH / SIDE WALL ================= -->
+    <model name="wall_south">
+      <static>true</static>
+      <pose>0.5 -3.0 1.25 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>6.2 0.2 2.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>6.2 0.2 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.35 0.4 1</ambient>
+            <diffuse>0.4 0.45 0.5 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ================= DOCKING BAY FLOOR MARKING PAD ================= -->
+    <!-- Yellow floor boundary box where robot achieves pose verification -->
+    <model name="docking_floor_pad">
+      <static>true</static>
+      <pose>2.39 0.0 0.002 0 0 0</pose>
+      <link name="link">
+        <visual name="visual_outer_pad">
+          <geometry>
+            <box>
+              <size>0.65 0.65 0.004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.9 0.75 0.1 1</ambient>
+            <diffuse>1.0 0.85 0.0 1</diffuse>
+          </material>
+        </visual>
+        <visual name="visual_inner_target_line">
+          <pose>0 0 0.003 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.04 0.50 0.004</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.1 0.8 0.2 1</ambient>
+            <diffuse>0.1 1.0 0.2 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ArUco Marker Model attached on Load Bay Wall facing -X direction -->
+    <include>
+      <uri>model://load_bay_marker</uri>
+      <name>load_bay_marker</name>
+      <pose>3.39 0 0.5 0 0 3.14159265</pose>
+    </include>
+
+  </world>
+</sdf>

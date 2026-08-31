@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="load_bay_marker">
+    <static>true</static>
+    <link name="link">
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.01 0.35 0.35</size>
+          </box>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+          <pbr>
+            <metal>
+              <albedo_map>model://load_bay_marker/materials/textures/marker_0.png</albedo_map>
+            </metal>
+          </pbr>
+          <script>
+            <uri>model://load_bay_marker/materials/scripts</uri>
+            <uri>model://load_bay_marker/materials/textures</uri>
+            <name>LoadBayMarker/Marker0</name>
+          </script>
+        </material>
+      </visual>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.01 0.35 0.35</size>
+          </box>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
